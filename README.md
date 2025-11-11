@@ -10,3 +10,6 @@ Criando o projeto
 
 Rodar projeto
 - ng serve
+
+Craindo componentes
+- ng generate component nome-do-componente
