@@ -3,7 +3,6 @@ import { Publisher } from './publisher.model';
 import { Genre } from './genre.model';
 import { Language } from './language.model';
 
-
 export interface Book {
     id: number;
     name: string;
