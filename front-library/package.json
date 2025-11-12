@@ -1,5 +1,5 @@
 {
-  "name": "front-back-library",
+  "name": "front-folheadoB",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:front-back-library": "node dist/front-back-library/server/server.mjs"
+    "serve:ssr:front-folheadoB": "node dist/front-folheadoB/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,

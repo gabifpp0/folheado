@@ -1,0 +1,10 @@
+﻿django
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+pillow
+drf-yasg
+requests
+django-cors-headers
+django-filter
+google-auth
