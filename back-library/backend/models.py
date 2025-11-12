@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib. auth.models import User
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -26,7 +26,7 @@ class Autor(models.Model):
 
     nome = models.CharField(max_length=150, verbose_name='Autor')
     dataNascimento = models.DateField(verbose_name='Data de Nascimento')
-    dataNascimento = models.DateField(verbose_name='Data de Nascimento', null=True, blank=True)
+    dataFalecimento = models.DateField(verbose_name='Data de Nascimento', null=True, blank=True)
     genero = models.CharField(max_length=1, choices=GENERO, blank=True)
     
     def __str__(self):
@@ -54,17 +54,13 @@ class Editora(models.Model):
         return f'{self.nome}'
 
 
-class Status(models.Model):
-    nome = models.CharField(max_length=150, verbose_name='Status')
-    
-    def __str__(self):
-        return f'{self.nome}'
-
-
 class Livro(models.Model):
-    nome = models.CharField(max_length=200, verbose_name='Título')
-    status = models.CharField()
-    
+    nome = models.CharField(max_length=200)
+    autor = models.ForeignKey(Autor, on_delete=models.CASCADE)
+    genero = models.ForeignKey(Genero, on_delete=models.SET_NULL, null=True)
+    linguagem = models.ForeignKey(Linguagem, on_delete=models.SET_NULL, null=True)
+    editora = models.ForeignKey(Editora, on_delete=models.SET_NULL, null=True)
+
     def __str__(self):
         return f'{self.nome}'
 
@@ -76,16 +72,27 @@ class Emprestimo(models.Model):
         ('R', 'Reservado')
     ]
 
+    leitor = models.ForeignKey(Perfil, on_delete=models.RESTRICT)
     livro = models.ForeignKey(Livro, on_delete=models.RESTRICT, related_name='Empréstimo')
-    dataEntrega = models.DateField(verbose_name='Data de devolução')
+    dataEmprestimo = models.DateField(auto_now_add=True)
+    dataDevolução = models.DateField(verbose_name='Data de devolução')
     status = models.CharField(max_length=1, choices=STATUS, default='M', help_text='Status do Livro')
+    devolvido = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.livro}'
     
-class Lista(models.Model):
-    tipo = models.CharField()
+class ListaLeitura(models.Model):
+    TIPO = [
+        ('favorito','Favorito'),
+        ('desejo', 'Desejo'),
+        ('espera', 'Espera')
+    ]
+
+    leitor = models.ForeignKey(Perfil, on_delete=models.CASCADE)
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.tipo}'
+        return self.livro
+
     
