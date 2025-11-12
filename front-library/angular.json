@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front-biblioteca": {
+    "front-back-library": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "front-biblioteca:build:production"
+              "buildTarget": "front-back-library:build:production"
             },
             "development": {
-              "buildTarget": "front-biblioteca:build:development"
+              "buildTarget": "front-back-library:build:development"
             }
           },
           "defaultConfiguration": "development"

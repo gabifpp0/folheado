@@ -1,5 +1,5 @@
 {
-  "name": "front-biblioteca",
+  "name": "front-back-library",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:front-biblioteca": "node dist/front-biblioteca/server/server.mjs"
+    "serve:ssr:front-back-library": "node dist/front-back-library/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
