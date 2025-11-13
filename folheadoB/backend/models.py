@@ -32,7 +32,7 @@ class Autor(models.Model):
     def __str__(self):
         return f'{self.nome}'
     
-
+    
 class Genero(models.Model):
     nome = models.CharField(max_length=50, verbose_name='Gênero')
 
