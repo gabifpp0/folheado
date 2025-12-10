@@ -5,7 +5,7 @@ from .models import Perfil, Autor, Genero, Linguagem, Editora, Livro, Emprestimo
 class PerfilSerializer(serializers.ModelSerializer):    
     class Meta:
         model = Perfil
-        fields = ['usuario', 'dataNascimento', 'telefone', 'endereco']
+        fields = ['usuario', 'telefone']
 
 class AutorSerializer(serializers.ModelSerializer):    
     class Meta:
@@ -46,8 +46,8 @@ class EmprestimoSerializer(serializers.ModelSerializer):
         fields = ['livro', 'usuario', 'dataEmprestimo', 'dataDevolucao', 'status']
 
 class ListaLeituraSerializer(serializers.ModelSerializer):    
-    leitor = PerfilSerializer(read_only=True)
-    livro = LivroSerializer(read_only=True)
+    #leitor = PerfilSerializer(read_only=True)
+    #livro = LivroSerializer(read_only=True)
     
     class Meta:
         model = ListaLeitura

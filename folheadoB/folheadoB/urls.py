@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.conf import settings
-from backend import views
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.routers import DefaultRouter
 from rest_framework import permissions
+from backend import views
+from backend.auth_views import CustomTokenObtainPairView, RegistroPerfilView
 
 
 schema_view = get_schema_view(
@@ -41,13 +42,20 @@ openapi.Info(
 router = DefaultRouter()
 
 router.register(r'perfis', views.PerfilViewSet, basename='perfis')
-
+router.register(r'autores', views.AutorViewSet, basename='autores')
+router.register(r'generos', views.GeneroViewSet, basename='generos')
+router.register(r'linguagens', views.LinguagemViewSet, basename='linguagens')
+router.register(r'editoras', views.EditoraViewSet, basename='editoras')
+router.register(r'livros', views.LivroViewSet, basename='livros')
+router.register(r'emprestimos', views.EmprestimoViewSet, basename='emprestimos')
+router.register(r'listas_leitura', views.ListaLeituraViewSet, basename='listas_leitura')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     
-    path('api/auth/', include('backend.auth_urls')),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/registro/', RegistroPerfilView.as_view(), name='registro_perfil'),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

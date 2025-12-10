@@ -75,7 +75,7 @@ class Emprestimo(models.Model):
     leitor = models.ForeignKey(Perfil, on_delete=models.RESTRICT)
     livro = models.ForeignKey(Livro, on_delete=models.RESTRICT, related_name='Empréstimo')
     dataEmprestimo = models.DateField(auto_now_add=True)
-    dataDevolução = models.DateField(verbose_name='Data de devolução')
+    dataDevolucao = models.DateField(verbose_name='Data de devolução')
     status = models.CharField(max_length=1, choices=STATUS, default='M', help_text='Status do Livro')
     devolvido = models.BooleanField(default=False)
 

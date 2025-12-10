@@ -19,13 +19,11 @@ class PerfilViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def perfil(self,request):
-        proponente = request.user.perfil
+        usuario = request.user.perfil
 
         data = {
-            'usuario': proponente.username,
-            'dataNascimento': proponente.perfil.dataNascimento,
-            'telefone': proponente.perfil.telefone,
-            'endereco': proponente.perfil.endereco
+            'usuario': usuario.perfil.username,
+            'telefone': usuario.perfil.telefone,
         }
         
         return Response(data)
@@ -38,3 +36,50 @@ class AutorViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Autor.objects.all()
     
+class GeneroViewSet(viewsets.ModelViewSet):
+    queryset = Genero.objects.all()
+    serializer_class = GeneroSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Genero.objects.all()
+    
+class LinguagemViewSet(viewsets.ModelViewSet):
+    queryset = Linguagem.objects.all()
+    serializer_class = LinguagemSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Linguagem.objects.all()
+    
+class EditoraViewSet(viewsets.ModelViewSet):
+    queryset = Editora.objects.all()
+    serializer_class = EditoraSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Editora.objects.all()
+
+class LivroViewSet(viewsets.ModelViewSet):
+    queryset = Livro.objects.all()
+    serializer_class = LinguagemSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Livro.objects.all()
+
+class EmprestimoViewSet(viewsets.ModelViewSet):
+    queryset = Emprestimo.objects.all()
+    serializer_class = EmprestimoSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Emprestimo.objects.all()
+
+class ListaLeituraViewSet(viewsets.ModelViewSet):
+    queryset = ListaLeitura.objects.all()
+    serializer_class = ListaLeituraSerializer
+    #permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return ListaLeitura.objects.all()
