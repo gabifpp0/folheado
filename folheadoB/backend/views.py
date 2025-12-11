@@ -14,32 +14,39 @@ class PerfilViewSet(viewsets.ModelViewSet):
     serializer_class = PerfilSerializer
     #permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
-        return Perfil.objects.all()
+    #def get_queryset(self):
+        #return Perfil.objects.all()
     
-    @action(detail=False, methods=['get'])
+    """@action(detail=False, methods=['get'])
     def perfil(self,request):
         usuario = request.user.perfil
 
         data = {
-            'usuario': usuario.perfil.username,
-            'telefone': usuario.perfil.telefone,
+            'username': usuario.perfil.username,
+            'email': usuario.perfil.email,
+            'first_name': usuario.perfil.first_name,
+            'last_name': usuario.perfil.last_name,
+            'tipo': usuario.tipo,
         }
         
-        return Response(data)
+        return Response(data)"""
 
 class AutorViewSet(viewsets.ModelViewSet):
     queryset = Autor.objects.all()
     serializer_class = AutorSerializer
     #permission_classes = [permissions.IsAuthenticated]
 
+    """@action(detail=False, methods=['get'])
     def get_queryset(self):
         return Autor.objects.all()
+    """
     
 class GeneroViewSet(viewsets.ModelViewSet):
-    queryset = Genero.objects.all()
+    #queryset = Genero.objects.all()
     serializer_class = GeneroSerializer
     #permission_classes = [permissions.IsAuthenticated]
+
+    #Não é necessário definir queryset aqui se for usar o get_queryset
 
     def get_queryset(self):
         return Genero.objects.all()
@@ -62,7 +69,7 @@ class EditoraViewSet(viewsets.ModelViewSet):
 
 class LivroViewSet(viewsets.ModelViewSet):
     queryset = Livro.objects.all()
-    serializer_class = LinguagemSerializer
+    serializer_class = LivroSerializer
     #permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):

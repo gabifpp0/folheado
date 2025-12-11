@@ -13,6 +13,10 @@ def get_user_type(usuario):
         return 'Unknown', None
  
 class ResgistroPerfil(serializers.ModelSerializer):
+    class Meta:
+        model = Perfil
+        fields = ['id', 'username', 'password', 'email', 'tipo', 'first_name', 'last_name', 'telefone']
+    
     username = serializers.CharField(max_length=150)
     password = serializers.CharField(max_length=128, write_only=True)
     email = serializers.EmailField()    
@@ -23,29 +27,26 @@ class ResgistroPerfil(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
+        data = {
+            'username': validated_data.pop('username'),
+            'password': validated_data.pop('password'),
+            'email': validated_data.pop('email'),
+            'first_name':  validated_data.pop('first_name'),
+            'last_name': validated_data.pop('last_name'),
+            'telefone': validated_data.pop('telefone')
+        }
+           
+        user = User.objects.create_user(
+            **data
+        )
 
-            username = validated_data.pop('username')
-            password = validated_data.pop('password')
-            email = validated_data.pop('email')
-            first_name = validated_data.pop('first_name')
-            last_name = validated_data.pop('last_name')
-            telefone = validated_data.pop('telefone', '')
+        perfil = Perfil.objects.create(
+            usuario=user,
+            tipo=validated_data.get('tipo'),
+            telefone=validated_data.get('telefone'),
+        )
 
-            user = User.objects.create_user(
-                username=username,
-                password=password,
-                email=email,
-                first_name=first_name,
-                last_name=last_name
-            )
-
-            perfil = Perfil.objects.create(
-                usuario=user,
-                tipo=validated_data.get('tipo'),
-                telefone=telefone
-            )
-
-            return perfil
+        return perfil
     
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
