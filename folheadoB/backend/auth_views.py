@@ -1,4 +1,5 @@
-from backend.auth_serializers import CustomTokenObtainPairSerializer, ResgistroPerfil
+from backend.auth_serializers import CustomTokenObtainPairSerializer, ResgistroPerfilSerializer
+from backend.serializers import PerfilSerializer
 from django.contrib.auth.models import User
 from django.db import transaction
 from rest_framework import viewsets, permissions
@@ -13,9 +14,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class RegistroPerfilView(generics.CreateAPIView):
     permission_classes = [permissions.AllowAny]
-    serializer_class = ResgistroPerfil
+    serializer_class = ResgistroPerfilSerializer
+    hhtp_method_names = ['post']
 
-    def token(self, request):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         
         if serializer.is_valid():
@@ -26,8 +28,7 @@ class RegistroPerfilView(generics.CreateAPIView):
             return Response({
                 'token': str(token.access_token),
                 'refresh': str(token),
-                'user': serializer.data,
-                'tipo': perfil.tipo,
+                'user': PerfilSerializer(perfil).data,
             }, status=201)
         
         return Response(serializer.errors, status=400)

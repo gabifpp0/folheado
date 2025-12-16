@@ -54,7 +54,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     
-    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/', CustomTokenObtainPairView.as_view(), name='token'),
     path('api/auth/registro/', RegistroPerfilView.as_view(), name='registro_perfil'),
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

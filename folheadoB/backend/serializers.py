@@ -12,7 +12,7 @@ class PerfilSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Perfil
-        fields = ['usuario', 'tipo', 'telefone', 'fotoPerfil']
+        fields = ['id', 'usuario', 'tipo', 'telefone', 'fotoPerfil']
 
 class AutorSerializer(serializers.ModelSerializer):    
     #adicionar validação de dataFalecimento > dataNascimento depois

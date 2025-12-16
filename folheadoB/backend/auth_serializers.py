@@ -12,10 +12,7 @@ def get_user_type(usuario):
     else:
         return 'Unknown', None
  
-class ResgistroPerfil(serializers.ModelSerializer):
-    class Meta:
-        model = Perfil
-        fields = ['id', 'username', 'password', 'email', 'tipo', 'first_name', 'last_name', 'telefone']
+class ResgistroPerfilSerializer(serializers.Serializer):
     
     username = serializers.CharField(max_length=150)
     password = serializers.CharField(max_length=128, write_only=True)
@@ -33,7 +30,6 @@ class ResgistroPerfil(serializers.ModelSerializer):
             'email': validated_data.pop('email'),
             'first_name':  validated_data.pop('first_name'),
             'last_name': validated_data.pop('last_name'),
-            'telefone': validated_data.pop('telefone')
         }
            
         user = User.objects.create_user(
@@ -49,18 +45,17 @@ class ResgistroPerfil(serializers.ModelSerializer):
         return perfil
     
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    
+    
     def validate(self, attrs):
         data = super().validate(attrs)
 
         user = self.user
-        user_type_display, user_type = get_user_type(user)
-
+    
         data.update({
              'user_id': user.id,
              'username': user.username,
              'email': user.email,
         })
-
-        data['tipo'] = user_type_display
 
         return data
