@@ -8,3 +8,4 @@ requests
 django-cors-headers
 django-filter
 google-auth
+gunicorn

@@ -1,0 +1,32 @@
+name: CI/CD Angular + Django
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build backend
+      run: docker compose build backend
+
+    - name: Build frontend
+      run: docker compose build frontend
+
+    - name: Subir containers
+      run: docker compose up -d
+
+    - name: Testar API
+      run: |
+        sleep 10
+        curl http://localhost:8000 || exit 1
+
+    - name: Derrubar containers
+      run: docker compose down
+    
