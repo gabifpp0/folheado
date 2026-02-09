@@ -1,12 +1,12 @@
 
 services:
   backend:
-    build: ./backend
+    build: ./folheadoB/backend
     container_name: backend_api
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./folheadoB/backend:/app
 
   frontend:
     build: ./frontend
