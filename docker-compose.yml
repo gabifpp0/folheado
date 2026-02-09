@@ -1,5 +1,17 @@
 
 services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: folheado
+      POSTGRES_USER: folheado
+      POSTGRES_PASSWORD: folheado
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   backend:
     build: ./folheadoB/backend
     container_name: backend_api
@@ -15,3 +27,6 @@ services:
       - "4200:80"
     depends_on:
       - backend
+
+volumes:
+  postgres_data:
